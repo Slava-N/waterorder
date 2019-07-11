@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% load filters }
+
+{% block title %}Каталог{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <p>Привет, {{ user }}</p>
+  <div class="btn btn-outline-primary">
+    <a href="/logout/">Logout</a>
+  </div>
+  </div>
+
+    <div class="container" id="products-container">
+        <div class="header">
+            <h1>Каталог</h1>
+        </div>
+
+        <div class="content grid">
+            <!--{# Здесь должен отображаться каталог с телефонами #}-->
+
+
+            {% for product in products%}
+
+            <div class="block product-item">
+<!--                <div class="container">-->
+
+                <div class="top">
+                    <ul>
+                    <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                    <li class="product-name"><span product-id="{{product.pk}}">{{ product.name }}</span></li>
+                    <li><a href="#"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a></li>
+                </ul>
+
+                </div>
+
+                <div class="middle text-center">
+                   <img src="{{ product.image.url }}" alt="product view"/>
+                </div>
+
+                <div class="bottom">
+                    <div class="style">Объем: {{ product.volume }} <br> Упаковка: {{ product.units_in_box }}</div>
+                    <div class="info">Бутылка: {{ product.bottle }}</div>
+                    <div class="price">{{ product.price }}</div>
+                    <a href="#" class="add btn btn-primary"
+                       data-productName = "{{product.name}}"
+                                                                  data-productId="{{product.pk}}"
+                                                                  data-price="{{ product.price }}"
+                    ><span class="glyphicon glyphicon-plus">Buy</span></a>
+            </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+<!--END OF PRODUCT-->
+    {% include "cart.html" %}
+
+{% endblock %}
